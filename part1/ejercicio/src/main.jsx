@@ -1,6 +1,32 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
+const Header = (props) => {
+  return (
+    <header>
+      <h1>{props.course}</h1>
+    </header>
+  )
+}
+
+const Content = (props) => {
+  return (
+    <main>
+      <p>{props.part1} {props.exercises1}</p>
+      <p>{props.part2} {props.exercises2}</p>
+      <p>{props.part3} {props.exercises3}</p>
+    </main>
+  )
+}
+
+const Total = (props) => {
+  return (
+    <footer>
+      <p>Number of exercises {props.exercises1 + props.exercises2 + props.exercises3}</p>
+    </footer>
+  )
+}
+
 
 const App = () => {
   const course = 'Half Stack application development'
@@ -13,19 +39,22 @@ const App = () => {
 
   return (
     <div>
-      <h1>{course}</h1>
-      <p>
-        {part1} {exercises1}
-      </p>
-      <p>
-        {part2} {exercises2}
-      </p>
+      <Header course={course} />
+      <Content
+        part1={part1}
+        exercises1={exercises1}
+        part2={part2}
+        exercises2={exercises2}
+        part3={part3}
+        exercises3={exercises3}
+      />
 
-      <p>
-        {part3} {exercises3}
-      </p>
+      <Total
+        exercises1={exercises1}
+        exercises2={exercises2}
+        exercises3={exercises3}
+      />
 
-      <p>Number of exercises { exercises1 + exercises2 + exercises3}</p>
     </div>
   )
 }
