@@ -17,11 +17,24 @@ const Button = ({ text, handleClick }) => {
   )
 }
 
+const VoteAnecdote = ({handleClick}) => {
+  return (
+    <button onClick={handleClick}>
+      vote
+    </button>
+  )
+}
+
 const App = () => {
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
 
   const generateRandonNumber = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length))
+  }
+
+  const addVote = (index) => {
+    setVotes(votes.map((vote, i) => i === index ? vote + 1 : vote))
   }
 
   return (
@@ -30,6 +43,13 @@ const App = () => {
         anecdotes[selected]
       }
       <div>
+        <>
+          <p>
+            {votes[selected]}
+          </p>
+          <VoteAnecdote handleClick={() => addVote(selected)}/>
+        </>
+
         <Button text='Get new anecdote' handleClick={generateRandonNumber} />
       </div>
     </div>
