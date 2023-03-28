@@ -18,7 +18,6 @@ const Button = ({ text, handleClick }) => {
   )
 }
 
-
 const Statics = ({ feedback, count }) => {
 
   if (count === 0) {
@@ -29,34 +28,65 @@ const Statics = ({ feedback, count }) => {
 
   const feedBackAverage = () => {
     let average = 0
-    const totalScore = feedback.reduce((acc, currentValue) => acc +  currentValue.score, 0)
+    const totalScore = feedback.reduce((acc, currentValue) => acc + currentValue.score, 0)
     average = totalScore / feedback.length
-    return average
+    return average.toFixed(2)
   }
 
   const porcentageGood = () => {
-    const totalScore = feedback.reduce((acc, currentValue) => acc +  currentValue.score, 0)
+    const totalScore = feedback.reduce((acc, currentValue) => acc + currentValue.score, 0)
     const totalGood = feedback.find(good => good.name === 'good').score
     return ((totalGood / totalScore) * 100).toFixed(2)
   }
 
-
   return (
     <footer>
-      <h2>
-        Statics
-      </h2>
+      <table>
+        <thead>
+          <tr>
+            <th colSpan={2}> Statics</th>
+          </tr>
+        </thead>
+        <tbody>
 
-      <ul>
-        {feedback.map(el => (
-          <li key={el.name}>
-            {el.name} : {el.score}
-          </li>
-        ))}
-      </ul>
-      <p>all: {count}</p>
-      <p>average: {feedBackAverage()}</p>
-      <p>positive: {porcentageGood()} %</p>
+          {feedback.map(el => (
+            <tr key={el.name}>
+              <td>{el.name} </td> <td> {el.score} </td>
+            </tr>
+          ))}
+
+          <tr>
+            <td>
+              all
+            </td>
+            <td>
+              {count}
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              average
+            </td>
+            <td>
+              {feedBackAverage()}
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              positive
+            </td>
+            <td>
+              {porcentageGood()} %
+            </td>
+          </tr>
+
+
+        </tbody>
+
+      </table>
+
 
 
     </footer>
