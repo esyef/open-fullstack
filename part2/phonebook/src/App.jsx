@@ -1,4 +1,7 @@
 import { useState } from "react"
+import AddNewPerson from './components/AddNewPerson'
+import Display from './components/Display'
+import ListOfPersons from './components/ListOfPersons'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
@@ -55,83 +58,27 @@ const App = () => {
       .includes(searchFilter.toLocaleLowerCase()
       ))
 
-
   return (
-    <div>
-      <header>
-        <h1>
-          Phonebook
-        </h1>
+    <>
+      <Display
+        searchFilter={ searchFilter }
+        onChange={ handleSearchChange }
+      />
 
-        <div>
-          <label htmlFor='search'>
-            Filter shown with
-          </label>
-          <input
-            type='text'
-            name='search'
-            id='search'
-            value={ searchFilter }
-            placeholder='Write a search term'
-            onChange={ handleSearchChange }
-          />
-        </div>
-      </header>
-      <h1>
-        Add a new
-      </h1>
-      <form onSubmit={ addNewPerson }>
-        <div>
-          <label htmlFor="name">
-            name:
-          </label>
-          <input
-            type="text"
-            name="name"
-            id='name'
-            placeholder="Jhon Doe"
-            value={ newName }
-            onChange={ handleNameChange }
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="phone">
-            number:
-          </label>
-          <input
-            type='text'
-            placeholder='999-452-112-123'
-            name='phone'
-            id='phone'
-            onChange={ handleNumberChange }
-            value={ number }
-            required
-          />
-        </div>
-        <div>
-          <button type='submit'>
-            add
-          </button>
-        </div>
-      </form>
+      <AddNewPerson
+        onSubmit={ addNewPerson }
+        newName={ newName }
+        number={ number }
+        handleNameChange={ handleNameChange }
+        handleNumberChange={ handleNumberChange }
+      />
 
-      <h1>
-        Numbers
-      </h1>
-      <ul>
 
-        {
-          searchPerson.map((person) => (
-            <li key={ person.name }>
-              <p> { person.name } : <span> { person.number } </span> </p>
-            </li>
-          ))
-        }
+      <ListOfPersons
+        searchPerson={ searchPerson }
+      />
 
-      </ul>
-
-    </div>
+    </>
   )
 }
 
