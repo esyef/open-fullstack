@@ -1,12 +1,15 @@
 import { useState } from "react"
 
 const App = () => {
-  const [ persons, setPersons ] = useState([ {
-    name: 'Arto Hellas',
-    number: '333-444-1234'
-  } ])
+  const [ persons, setPersons ] = useState([
+    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' }
+  ])
   const [ newName, setNewName ] = useState('')
   const [ number, setNumber ] = useState('')
+  const [ searchFilter, setSearchFilter ] = useState('')
 
   const addNewPerson = (eve) => {
     eve.preventDefault()
@@ -43,10 +46,39 @@ const App = () => {
     }
   }
 
+  const handleSearchChange = (eve) => {
+    setSearchFilter(eve.target.value)
+  }
+
+  const searchPerson = persons.filter(
+    (person) => person.name.toLocaleLowerCase()
+      .includes(searchFilter.toLocaleLowerCase()
+      ))
+
+
   return (
     <div>
+      <header>
+        <h1>
+          Phonebook
+        </h1>
+
+        <div>
+          <label htmlFor='search'>
+            Filter shown with
+          </label>
+          <input
+            type='text'
+            name='search'
+            id='search'
+            value={ searchFilter }
+            placeholder='Write a search term'
+            onChange={ handleSearchChange }
+          />
+        </div>
+      </header>
       <h1>
-        Phonebook
+        Add a new
       </h1>
       <form onSubmit={ addNewPerson }>
         <div>
@@ -84,13 +116,13 @@ const App = () => {
         </div>
       </form>
 
-      <h2>
+      <h1>
         Numbers
-      </h2>
+      </h1>
       <ul>
 
         {
-          persons.map((person) => (
+          searchPerson.map((person) => (
             <li key={ person.name }>
               <p> { person.name } : <span> { person.number } </span> </p>
             </li>
