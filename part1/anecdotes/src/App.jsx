@@ -85,12 +85,12 @@ const App = () => {
         <Button text='Get new anecdote' handleClick={generateRandonNumber} />
       </div>
 
-    
-        <WithMostVotes
-          anecdote={anecdoteWithMostVotes} 
-          votes={highestNumberOfVotes}
-        />
-  
+
+      <WithMostVotes
+        anecdote={anecdoteWithMostVotes}
+        votes={highestNumberOfVotes}
+      />
+
     </div>
   )
 }
