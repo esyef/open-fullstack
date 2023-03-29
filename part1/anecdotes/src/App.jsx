@@ -17,11 +17,37 @@ const Button = ({ text, handleClick }) => {
   )
 }
 
-const VoteAnecdote = ({handleClick}) => {
+const VoteAnecdote = ({ handleClick }) => {
   return (
     <button onClick={handleClick}>
       vote
     </button>
+  )
+}
+
+const CurrentAnecdote = ({ anecdote }) => {
+  return (
+    <header>
+      <h1>Anecdote of the day</h1>
+
+      <p>
+        {anecdote}
+      </p>
+    </header>
+  )
+}
+
+const WithMostVotes = ({ anecdote, votes }) => {
+
+  return (
+    <div>
+      <h1>Anecdote  with most votes</h1>
+      <p>
+        {anecdote} </p>
+      <p>
+        has {votes} votes
+      </p>
+    </div>
   )
 }
 
@@ -33,25 +59,38 @@ const App = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length))
   }
 
+
   const addVote = (index) => {
     setVotes(votes.map((vote, i) => i === index ? vote + 1 : vote))
   }
 
+  const withMostVotesIndex = votes.indexOf(Math.max(...votes))
+  const anecdoteWithMostVotes = anecdotes[withMostVotesIndex]
+  const highestNumberOfVotes = votes[withMostVotesIndex]
+
   return (
     <div>
-      {
-        anecdotes[selected]
-      }
+      <CurrentAnecdote
+        anecdote={anecdotes[selected]}
+      />
+
       <div>
         <>
-          <p>
+          <h3>
             {votes[selected]}
-          </p>
-          <VoteAnecdote handleClick={() => addVote(selected)}/>
+          </h3>
+          <VoteAnecdote handleClick={() => addVote(selected)} />
         </>
 
         <Button text='Get new anecdote' handleClick={generateRandonNumber} />
       </div>
+
+    
+        <WithMostVotes
+          anecdote={anecdoteWithMostVotes} 
+          votes={highestNumberOfVotes}
+        />
+  
     </div>
   )
 }
