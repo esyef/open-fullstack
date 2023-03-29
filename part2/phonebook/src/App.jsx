@@ -9,6 +9,10 @@ const App = () => {
   const addName = (eve) => {
     eve.preventDefault()
     if (newName.trim().length <= 3) return
+    const isNameExist = persons.map((person) => person.name).includes(newName)
+    if (isNameExist) {
+      alert(` ${ newName } is already added to phonebook`)
+    }
     const newPerson = {
       name: newName
     }
