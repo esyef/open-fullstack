@@ -32,6 +32,7 @@ const App = () => {
         searchCountry.length > 0 && (
           <Countries
             countries={ filterCounties }
+            handleSearchChange={ handleSearchChange }
           />
         )
       }
