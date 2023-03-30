@@ -1,18 +1,19 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from 'axios'
 import AddNewPerson from './components/AddNewPerson'
 import Display from './components/Display'
 import ListOfPersons from './components/ListOfPersons'
 
 const App = () => {
-  const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ])
+  const [ persons, setPersons ] = useState([])
   const [ newName, setNewName ] = useState('')
   const [ number, setNumber ] = useState('')
   const [ searchFilter, setSearchFilter ] = useState('')
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/persons')
+      .then((data) => setPersons(data.data))
+  }, [])
 
   const addNewPerson = (eve) => {
     eve.preventDefault()
